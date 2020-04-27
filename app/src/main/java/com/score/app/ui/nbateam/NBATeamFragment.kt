@@ -1,12 +1,16 @@
 package com.score.app.ui.nbateam
 
-import androidx.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.score.app.NBATeamApplication
 import com.score.app.R
+import javax.inject.Inject
 
 class NBATeamFragment : Fragment() {
 
@@ -14,7 +18,17 @@ class NBATeamFragment : Fragment() {
         fun newInstance() = NBATeamFragment()
     }
 
-    private lateinit var viewModel: NBATeamViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel by viewModels<NBATeamViewModel> { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity().application as NBATeamApplication)
+                .appComponent.teamComponent().create().inject(this)
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -23,8 +37,8 @@ class NBATeamFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NBATeamViewModel::class.java)
-        // TODO: Use the ViewModel
+
+
     }
 
 }
