@@ -17,6 +17,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "API_URL", "\"https://raw.githubusercontent.com/scoremedia/\""
+        buildConfigField "Integer", "CACHE_SIZE", "5"
     }
 
     buildTypes {
@@ -50,8 +51,11 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.fragment:fragment-ktx:1.2.4"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "com.google.android.material:material:1.1.0"
 
     implementation "com.google.dagger:dagger:2.27"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:dagger-compiler:2.27"
 
     implementation "com.squareup.retrofit2:retrofit:2.8.1"

@@ -2,7 +2,7 @@ package com.score.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.score.app.ui.nbateam.NBATeamFragment
+import com.score.app.ui.TeamListFragment
 
 class NBATeamActivity : AppCompatActivity() {
 
@@ -12,7 +12,7 @@ class NBATeamActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, NBATeamFragment.newInstance())
+                    .replace(R.id.container, TeamListFragment.newInstance())
                     .commitNow()
         }
     }

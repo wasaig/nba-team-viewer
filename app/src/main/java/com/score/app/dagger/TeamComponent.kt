@@ -1,6 +1,6 @@
 package com.score.app.dagger
 
-import com.score.app.ui.nbateam.NBATeamFragment
+import com.score.app.ui.TeamListFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TeamModule::class])
@@ -11,5 +11,5 @@ interface TeamComponent {
         fun create(): TeamComponent
     }
 
-    fun inject(fragment: NBATeamFragment)
+    fun inject(fragment: TeamListFragment)
 }

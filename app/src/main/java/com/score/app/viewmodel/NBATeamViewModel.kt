@@ -1,5 +1,6 @@
-package com.score.app.ui.nbateam
+package com.score.app.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.score.app.network.Resource
@@ -9,9 +10,16 @@ import javax.inject.Inject
 
 class NBATeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
 
+    private var teamsLiveData: LiveData<Resource<ArrayList<Team>>>
 
-    fun getTeams() = liveData<Resource<ArrayList<Team>>> {
-        val teams = repository.getTeams()
+    init {
+        teamsLiveData = fetchTeams()
+    }
+
+    fun observeTeams() = teamsLiveData
+
+    fun fetchTeams() = liveData {
+        val teams = repository.fetchTeams()
         emit(teams)
     }
 }
