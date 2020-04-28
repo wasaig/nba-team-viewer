@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.score.app.NBATeamApplication
@@ -27,7 +27,7 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<NBATeamViewModel> { viewModelFactory }
+    private val viewModel by activityViewModels<NBATeamViewModel> { viewModelFactory }
     private lateinit var teamAdapter: TeamAdapter
 
     override fun onAttach(context: Context) {
@@ -69,7 +69,9 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
         viewModel.observeTeams().observe(viewLifecycleOwner, Observer {
             progress_circular.visibility = View.GONE
             if (it.status == Status.SUCCESS) {
-                it.data?.let { teams -> teamAdapter.addData(teams) }
+                it.data?.let { teams ->
+                    teamAdapter.addData(teams)
+                }
             } else {
                 Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 btn_retry.visibility = View.VISIBLE
@@ -79,6 +81,7 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
 
     override fun onTeamClick(position: Int) {
         val team: Team = teamAdapter.getItemAtPosition(position)
+        viewModel.teamClicked(team)
     }
 
 }

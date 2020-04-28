@@ -14,10 +14,14 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
     private val data = mutableListOf<Team>()
     var teamClickListener: OnTeamClickListener? = null
 
-    class TeamViewHolder(view: View, var teamClickListener: OnTeamClickListener?) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    class TeamViewHolder(view: View, private var teamClickListener: OnTeamClickListener?) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val teamName: TextView = view.tv_team_name
         val teamWins: TextView = view.tv_team_wins
         val teamLosses: TextView = view.tv_team_losses
+
+        init {
+            view.setOnClickListener(this)
+        }
 
         override fun onClick(v: View?) {
             teamClickListener?.onTeamClick(adapterPosition)
@@ -27,6 +31,7 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.team_list_item, parent, false)
+
 
         return TeamViewHolder(view, teamClickListener)
     }
@@ -44,6 +49,7 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
     fun addData(data: ArrayList<Team>) {
         this.data.clear()
         this.data.addAll(data)
+        notifyDataSetChanged()
     }
 
     interface OnTeamClickListener {
