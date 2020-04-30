@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.score.app.R
 import com.score.app.network.model.Team
+import com.score.app.util.*
 import kotlinx.android.synthetic.main.team_list_item.view.*
 
 class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
@@ -32,24 +33,47 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.team_list_item, parent, false)
 
-
         return TeamViewHolder(view, teamClickListener)
     }
 
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
         holder.teamName.text = data[position].fullName
-        holder.teamWins.text = data[position].wins.toString()
-        holder.teamLosses.text = data[position].losses.toString()
+        holder.teamWins.text = String.format(holder.itemView.context.getString(R.string.team_wins), data[position].wins)
+        holder.teamLosses.text = String.format(holder.itemView.context.getString(R.string.team_losses), data[position].losses)
     }
 
     override fun getItemCount() = data.size
 
     fun getItemAtPosition(position: Int): Team = data[position]
 
-    fun addData(data: ArrayList<Team>) {
-        this.data.clear()
-        this.data.addAll(data)
+    fun addData(teams: List<Team>) {
+        data.clear()
+        data.addAll(teams)
         notifyDataSetChanged()
+    }
+
+    fun sortAz() {
+        addData(data.sortAz())
+    }
+
+    fun sortZa() {
+        addData(data.sortZa())
+    }
+
+    fun sortByWins() {
+        addData(data.sortByWins())
+    }
+
+    fun sortByWinsDescending() {
+        addData(data.sortByWinsDescending())
+    }
+
+    fun sortByLosses() {
+        addData(data.sortByLosses())
+    }
+
+    fun sortByLossesDescending() {
+        addData(data.sortByLossesDescending())
     }
 
     interface OnTeamClickListener {

@@ -43,10 +43,24 @@ class TeamDetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        tv_team_name.text = team?.fullName
-        tv_team_wins.text = team?.wins.toString()
-        tv_team_losses.text = team?.losses.toString()
+        setupToolbar()
+        setupTeamInfo()
+        setupPlayerList()
+    }
 
+    private fun setupToolbar() {
+        details_toolbar.title = getString(R.string.title_team_details)
+        details_toolbar.setNavigationIcon(R.drawable.ic_back)
+        details_toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+    }
+
+    private fun setupTeamInfo() {
+        tv_team_name.text = team?.fullName
+        tv_team_wins.text = String.format(getString(R.string.team_wins), team?.wins)
+        tv_team_losses.text = String.format(getString(R.string.team_losses), team?.losses)
+    }
+
+    private fun setupPlayerList() {
         val playerAdapter = PlayerAdapter()
         team?.players?.let { playerAdapter.addData(it) }
         rv_player_list.adapter = playerAdapter

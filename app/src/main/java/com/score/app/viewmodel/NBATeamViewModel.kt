@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class NBATeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
 
-    private var teamsLiveData: LiveData<Resource<ArrayList<Team>>>
+    private var teamsLiveData: LiveData<Resource<List<Team>>>
     private var teamClickedLiveData = MutableLiveData<Team>()
 
     init {

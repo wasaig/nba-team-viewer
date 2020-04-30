@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_A_Z"
+        android:title="@string/action_a_z"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_Z_A"
+        android:title="@string/action_z_a"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_wins"
+        android:title="@string/action_wins"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_wins_descending"
+        android:title="@string/action_wins_descending"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_losses"
+        android:title="@string/action_losses"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_losses_descending"
+        android:title="@string/action_losses_descending"
+        app:showAsAction="never" />
+
+</menu>

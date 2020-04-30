@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface TeamService {
 
     @GET("nba-team-viewer/master/input.json")
-    suspend fun getTeams(): ArrayList<Team>
+    suspend fun getTeams(): List<Team>
 }

@@ -7,21 +7,35 @@
     android:background="?android:attr/colorBackground"
     tools:context=".ui.TeamDetailsFragment">
 
-    <include
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/details_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="?android:attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="?android:attr/actionBarPopupTheme" />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/team_info"
-        layout="@layout/team_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/marginStartEnd"
+        android:elevation="4dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/details_toolbar">
+
+        <include layout="@layout/team_list_item" />
+
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_player_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/marginStartEnd"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

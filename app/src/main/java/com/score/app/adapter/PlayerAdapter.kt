@@ -30,8 +30,8 @@ class PlayerAdapter : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.playerFistName.text = data[position].firstName
         holder.playerLastName.text = data[position].lastName
-        holder.playerPosition.text = data[position].position
-        holder.playerNumber.text = data[position].number.toString()
+        holder.playerPosition.text = String.format(holder.itemView.context.getString(R.string.player_position), data[position].position)
+        holder.playerNumber.text = String.format(holder.itemView.context.getString(R.string.player_number), data[position].number)
     }
 
     override fun getItemCount() = data.size
