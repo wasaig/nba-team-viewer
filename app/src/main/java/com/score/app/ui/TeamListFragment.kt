@@ -14,9 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.score.app.NBATeamApplication
 import com.score.app.R
 import com.score.app.adapter.TeamAdapter
-import com.score.app.network.Status
 import com.score.app.network.model.Team
-import com.score.app.util.sortAz
 import com.score.app.viewmodel.NBATeamViewModel
 import kotlinx.android.synthetic.main.n_b_a_team_fragment.*
 import javax.inject.Inject
@@ -50,8 +48,10 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
         setupListAdapter()
         setupRetryButton()
 
-        progress_circular.visibility = View.VISIBLE
         observeTeams()
+        observeProgressBar()
+        observeRetryButton()
+        observeErrorMessage()
     }
 
     private fun setupToolbar() {
@@ -68,24 +68,33 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
 
     private fun setupRetryButton() {
         btn_retry.setOnClickListener {
-            btn_retry.visibility = View.GONE
-            progress_circular.visibility = View.VISIBLE
-            viewModel.fetchTeams()
+            viewModel.retryClicked()
         }
     }
 
     private fun observeTeams() {
         viewModel.observeTeams().observe(viewLifecycleOwner, Observer {
-            progress_circular.visibility = View.GONE
-            if (it.status == Status.SUCCESS) {
-                it.data?.let { teams ->
-                    val sortedTeams = teams.sortAz()
-                    teamAdapter.addData(sortedTeams)
-                }
-            } else {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                btn_retry.visibility = View.VISIBLE
+            if (it.isNotEmpty()) {
+                teamAdapter.addData(it)
             }
+        })
+    }
+
+    private fun observeProgressBar() {
+        viewModel.observeProgressBar().observe(viewLifecycleOwner, Observer {
+            progress_circular.visibility = if (it == 0) View.GONE else View.VISIBLE
+        })
+    }
+
+    private fun observeRetryButton() {
+        viewModel.observeRetryButton().observe(viewLifecycleOwner, Observer {
+            btn_retry.visibility = if (it == 0) View.GONE else View.VISIBLE
+        })
+    }
+
+    private fun observeErrorMessage() {
+        viewModel.observeErrorMessage().observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
     }
 

@@ -4,29 +4,51 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.score.app.network.Resource
+import com.score.app.network.Status
 import com.score.app.network.model.Team
 import com.score.app.repository.TeamRepository
+import com.score.app.util.sortAz
 import javax.inject.Inject
 
 class NBATeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
 
-    private var teamsLiveData: LiveData<Resource<List<Team>>>
-    private var teamClickedLiveData = MutableLiveData<Team>()
+    private val teamsLiveData: LiveData<List<Team>>
+    private val teamClickedLiveData = MutableLiveData<Team>()
+    private val showProgressBarLiveData = MutableLiveData<Int>()
+    private val showRetryButton = MutableLiveData<Int>()
+    private val showErrorMessage = MutableLiveData<String>()
 
     init {
+        showProgressBarLiveData.value = 1
+        showRetryButton.value = 0
         teamsLiveData = fetchTeams()
     }
 
     fun observeTeams() = teamsLiveData
     fun observeTeamClicked() = teamClickedLiveData
+    fun observeProgressBar() = showProgressBarLiveData
+    fun observeRetryButton() = showRetryButton
+    fun observeErrorMessage() = showErrorMessage
 
-    fun fetchTeams() = liveData {
-        val teams = repository.fetchTeams()
+    private fun fetchTeams() = liveData {
+        val resource = repository.fetchTeams()
+        showProgressBarLiveData.value = 0
+        showRetryButton.value = 0
+        val teams: List<Team> = if (resource.status == Status.SUCCESS) {
+            resource.data?.sortAz() ?: emptyList()
+        } else {
+            showRetryButton.value = 1
+            showErrorMessage.value = resource.message
+            emptyList<Team>()
+        }
         emit(teams)
     }
 
     fun teamClicked(team: Team) {
         teamClickedLiveData.value = team
+    }
+
+    fun retryClicked() {
+        fetchTeams()
     }
 }

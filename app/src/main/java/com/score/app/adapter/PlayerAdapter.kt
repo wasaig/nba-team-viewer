@@ -36,8 +36,6 @@ class PlayerAdapter : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
     override fun getItemCount() = data.size
 
-//    fun getItemAtPosition(position: Int): Player = data[position]
-
     fun addData(data: ArrayList<Player>) {
         this.data.clear()
         this.data.addAll(data)
