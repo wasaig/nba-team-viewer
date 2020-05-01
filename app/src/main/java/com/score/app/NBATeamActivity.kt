@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.score.app.network.model.Team
 import com.score.app.ui.TeamDetailsFragment
 import com.score.app.ui.TeamListFragment
+import com.score.app.util.NetworkUtil
 import com.score.app.viewmodel.NBATeamViewModel
 import javax.inject.Inject
 
@@ -21,6 +22,8 @@ class NBATeamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.n_b_a_team_activity)
         (application as NBATeamApplication).appComponent.teamComponent().create().inject(this)
+
+        NetworkUtil.registerNetworkCallback(applicationContext)
 
         if (savedInstanceState == null) {
             loadTeamListFragment()

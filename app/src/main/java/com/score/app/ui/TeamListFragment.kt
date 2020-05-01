@@ -57,6 +57,7 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
     private fun setupToolbar() {
         list_toolbar.title = getString(R.string.title_team_list)
         list_toolbar.inflateMenu(R.menu.team_menu)
+        list_toolbar.overflowIcon = context?.getDrawable(R.drawable.ic_sort)
         list_toolbar.setOnMenuItemClickListener { onMenuItemClick(it) }
     }
 

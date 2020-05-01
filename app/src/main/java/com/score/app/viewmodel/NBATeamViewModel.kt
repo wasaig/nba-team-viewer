@@ -1,18 +1,18 @@
 package com.score.app.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.score.app.network.Status
 import com.score.app.network.model.Team
 import com.score.app.repository.TeamRepository
 import com.score.app.util.sortAz
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NBATeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
 
-    private val teamsLiveData: LiveData<List<Team>>
+    private val teamsLiveData = MutableLiveData<List<Team>>()
     private val teamClickedLiveData = MutableLiveData<Team>()
     private val showProgressBarLiveData = MutableLiveData<Int>()
     private val showRetryButton = MutableLiveData<Int>()
@@ -21,7 +21,7 @@ class NBATeamViewModel @Inject constructor(private val repository: TeamRepositor
     init {
         showProgressBarLiveData.value = 1
         showRetryButton.value = 0
-        teamsLiveData = fetchTeams()
+        fetchTeams()
     }
 
     fun observeTeams() = teamsLiveData
@@ -30,7 +30,7 @@ class NBATeamViewModel @Inject constructor(private val repository: TeamRepositor
     fun observeRetryButton() = showRetryButton
     fun observeErrorMessage() = showErrorMessage
 
-    private fun fetchTeams() = liveData {
+    private fun fetchTeams() = viewModelScope.launch {
         val resource = repository.fetchTeams()
         showProgressBarLiveData.value = 0
         showRetryButton.value = 0
@@ -41,7 +41,7 @@ class NBATeamViewModel @Inject constructor(private val repository: TeamRepositor
             showErrorMessage.value = resource.message
             emptyList<Team>()
         }
-        emit(teams)
+        teamsLiveData.value = teams
     }
 
     fun teamClicked(team: Team) {

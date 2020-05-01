@@ -7,14 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.TeamListFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/list_toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        android:theme="?android:attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="?android:attr/actionBarPopupTheme" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:theme="?android:attr/actionBarTheme"
+            app:popupTheme="?android:attr/actionBarPopupTheme" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <Button
         android:id="@+id/btn_retry"
@@ -42,6 +47,6 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/list_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

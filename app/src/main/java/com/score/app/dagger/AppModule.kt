@@ -3,6 +3,7 @@ package com.score.app.dagger
 import android.content.Context
 import com.score.app.BuildConfig
 import com.score.app.network.ResponseHandler
+import com.score.app.network.interceptor.CacheInterceptor
 import com.score.app.network.service.TeamService
 import dagger.Module
 import dagger.Provides
@@ -18,23 +19,28 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttp(context: Context): OkHttpClient.Builder {
+    fun provideOkHttp(context: Context): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+
+        val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)
+        builder.addInterceptor(logging)
+
         val cacheSize = BuildConfig.CACHE_SIZE * 1024 * 1024L // 5 MB
         val cache = Cache(context.cacheDir, cacheSize)
-        return OkHttpClient.Builder().cache(cache)
+        builder.cache(cache)
+        builder.addInterceptor(CacheInterceptor())
+
+        return builder.build()
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(httpClient: OkHttpClient.Builder): Retrofit {
-
-        val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        httpClient.addInterceptor(logging)
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
 
         val retroBuilder: Retrofit.Builder = Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-        retroBuilder.client(httpClient.build())
+        retroBuilder.client(client)
 
         return retroBuilder.build()
     }
@@ -52,6 +58,5 @@ object AppModule {
             retrofit: Retrofit): TeamService {
         return retrofit.create(TeamService::class.java)
     }
-
 
 }
