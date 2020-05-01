@@ -4,7 +4,7 @@ import android.app.Application
 import com.score.app.dagger.AppComponent
 import com.score.app.dagger.DaggerAppComponent
 
-open class NBATeamApplication : Application() {
+open class TeamApplication : Application() {
 
     val appComponent: AppComponent by lazy {
         initializeComponent()

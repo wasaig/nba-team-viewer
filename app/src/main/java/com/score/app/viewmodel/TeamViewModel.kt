@@ -10,7 +10,7 @@ import com.score.app.util.sortAz
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NBATeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
+class TeamViewModel @Inject constructor(private val repository: TeamRepository) : ViewModel() {
 
     private val teamsLiveData = MutableLiveData<List<Team>>()
     private val teamClickedLiveData = MutableLiveData<Team>()

@@ -9,19 +9,19 @@ import com.score.app.network.model.Team
 import com.score.app.ui.TeamDetailsFragment
 import com.score.app.ui.TeamListFragment
 import com.score.app.util.NetworkUtil
-import com.score.app.viewmodel.NBATeamViewModel
+import com.score.app.viewmodel.TeamViewModel
 import javax.inject.Inject
 
-class NBATeamActivity : AppCompatActivity() {
+class TeamActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by viewModels<NBATeamViewModel> { viewModelFactory }
+    private val viewModel by viewModels<TeamViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.n_b_a_team_activity)
-        (application as NBATeamApplication).appComponent.teamComponent().create().inject(this)
+        setContentView(R.layout.activity_team)
+        (application as TeamApplication).appComponent.teamComponent().create().inject(this)
 
         NetworkUtil.registerNetworkCallback(applicationContext)
 

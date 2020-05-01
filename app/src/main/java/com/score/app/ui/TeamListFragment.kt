@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.score.app.NBATeamApplication
 import com.score.app.R
+import com.score.app.TeamApplication
 import com.score.app.adapter.TeamAdapter
 import com.score.app.network.model.Team
-import com.score.app.viewmodel.NBATeamViewModel
-import kotlinx.android.synthetic.main.n_b_a_team_fragment.*
+import com.score.app.viewmodel.TeamViewModel
+import kotlinx.android.synthetic.main.fragment_team_list.*
 import javax.inject.Inject
 
 class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
@@ -27,19 +27,19 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val viewModel by activityViewModels<NBATeamViewModel> { viewModelFactory }
+    private val viewModel by activityViewModels<TeamViewModel> { viewModelFactory }
     private lateinit var teamAdapter: TeamAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        (requireActivity().application as NBATeamApplication)
+        (requireActivity().application as TeamApplication)
                 .appComponent.teamComponent().create().inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.n_b_a_team_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_team_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
