@@ -61,19 +61,19 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
     }
 
     fun sortByWins() {
-        addData(data.sortByWins())
+        addData(data.sortByLeastWins())
     }
 
     fun sortByWinsDescending() {
-        addData(data.sortByWinsDescending())
+        addData(data.sortByMostWins())
     }
 
     fun sortByLosses() {
-        addData(data.sortByLosses())
+        addData(data.sortByLeastLosses())
     }
 
     fun sortByLossesDescending() {
-        addData(data.sortByLossesDescending())
+        addData(data.sortByMostLosses())
     }
 
     interface OnTeamClickListener {

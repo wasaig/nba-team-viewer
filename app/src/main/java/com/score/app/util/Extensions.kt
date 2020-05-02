@@ -10,18 +10,18 @@ fun List<Team>.sortZa(): List<Team> {
     return sortedWith(compareByDescending { it.fullName })
 }
 
-fun List<Team>.sortByWins(): List<Team> {
+fun List<Team>.sortByLeastWins(): List<Team> {
     return sortedWith(compareBy { it.wins })
 }
 
-fun List<Team>.sortByWinsDescending(): List<Team> {
+fun List<Team>.sortByMostWins(): List<Team> {
     return sortedWith(compareByDescending { it.wins })
 }
 
-fun List<Team>.sortByLosses(): List<Team> {
+fun List<Team>.sortByLeastLosses(): List<Team> {
     return sortedWith(compareBy { it.losses })
 }
 
-fun List<Team>.sortByLossesDescending(): List<Team> {
+fun List<Team>.sortByMostLosses(): List<Team> {
     return sortedWith(compareByDescending { it.losses })
 }

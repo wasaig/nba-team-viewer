@@ -12,10 +12,10 @@
 
     <string name="action_a_z">A-Z</string>
     <string name="action_z_a">Z-A</string>
-    <string name="action_wins">Wins</string>
-    <string name="action_wins_descending">Wins Descending</string>
-    <string name="action_losses">Losses</string>
-    <string name="action_losses_descending">Losses Descending</string>
+    <string name="action_wins">Least Wins</string>
+    <string name="action_wins_descending">Most Wins</string>
+    <string name="action_losses">Least Losses</string>
+    <string name="action_losses_descending">Most Losses</string>
     <string name="btn_retry">Retry</string>
 
 </resources>
