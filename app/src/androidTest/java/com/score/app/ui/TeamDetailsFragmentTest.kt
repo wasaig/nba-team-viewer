@@ -23,8 +23,8 @@ class TeamDetailsFragmentTest {
     fun testFragmentTitle() {
         onView(withId(R.id.rv_team_list)).perform(actionOnItemAtPosition<TeamAdapter.TeamViewHolder>(2, ViewActions.click()))
 
-        onView(withId(R.id.details_toolbar)).check(matches(isDisplayed()));
-        onView(withText(R.string.title_team_details)).check(matches(withParent(withId(R.id.details_toolbar))));
+        onView(withId(R.id.details_toolbar)).check(matches(isDisplayed()))
+        onView(withText(R.string.title_team_details)).check(matches(withParent(withId(R.id.details_toolbar))))
     }
 
     @Test

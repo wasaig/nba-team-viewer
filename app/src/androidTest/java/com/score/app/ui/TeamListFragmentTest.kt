@@ -23,8 +23,8 @@ class TeamListFragmentTest {
 
     @Test
     fun testFragmentTitle() {
-        onView(withId(R.id.list_toolbar)).check(matches(isDisplayed()));
-        onView(withText(R.string.title_team_list)).check(matches(withParent(withId(R.id.list_toolbar))));
+        onView(withId(R.id.list_toolbar)).check(matches(isDisplayed()))
+        onView(withText(R.string.title_team_list)).check(matches(withParent(withId(R.id.list_toolbar))))
     }
 
     @Test
