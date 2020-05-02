@@ -1,6 +1,6 @@
 package com.score.app.dagger
 
-import com.score.app.TeamActivity
+import com.score.app.ui.TeamActivity
 import com.score.app.ui.TeamListFragment
 import dagger.Subcomponent
 

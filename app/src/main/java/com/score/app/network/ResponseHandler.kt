@@ -19,7 +19,7 @@ open class ResponseHandler {
 
     private fun getErrorMessage(code: Int): String {
         return when (code) {
-            ErrorCodes.SocketTimeOut.code -> "Timeout"
+            ErrorCodes.SocketTimeOut.code -> "Request Timeout"
             401 -> "Unauthorised"
             404 -> "Not found"
             else -> "Something went wrong"

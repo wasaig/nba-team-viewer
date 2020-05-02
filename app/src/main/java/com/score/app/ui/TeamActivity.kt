@@ -1,13 +1,13 @@
-package com.score.app
+package com.score.app.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.score.app.R
+import com.score.app.TeamApplication
 import com.score.app.network.model.Team
-import com.score.app.ui.TeamDetailsFragment
-import com.score.app.ui.TeamListFragment
 import com.score.app.util.NetworkUtil
 import com.score.app.viewmodel.TeamViewModel
 import javax.inject.Inject

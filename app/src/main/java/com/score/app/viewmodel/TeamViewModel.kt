@@ -1,5 +1,6 @@
 package com.score.app.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,30 +16,31 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
     private val teamsLiveData = MutableLiveData<List<Team>>()
     private val teamClickedLiveData = MutableLiveData<Team>()
     private val showProgressBarLiveData = MutableLiveData<Int>()
-    private val showRetryButton = MutableLiveData<Int>()
-    private val showErrorMessage = MutableLiveData<String>()
+    private val showRetryButtonLiveData = MutableLiveData<Int>()
+    private val showErrorMessageLiveData = MutableLiveData<String>()
 
     init {
-        showProgressBarLiveData.value = 1
-        showRetryButton.value = 0
+        showProgressBar(1)
+        showRetryButton(0)
         fetchTeams()
     }
 
     fun observeTeams() = teamsLiveData
     fun observeTeamClicked() = teamClickedLiveData
     fun observeProgressBar() = showProgressBarLiveData
-    fun observeRetryButton() = showRetryButton
-    fun observeErrorMessage() = showErrorMessage
+    fun observeRetryButton() = showRetryButtonLiveData
+    fun observeErrorMessage() = showErrorMessageLiveData
 
-    private fun fetchTeams() = viewModelScope.launch {
+    @VisibleForTesting
+    fun fetchTeams() = viewModelScope.launch {
         val resource = repository.fetchTeams()
-        showProgressBarLiveData.value = 0
-        showRetryButton.value = 0
+        showProgressBar(0)
+        showRetryButton(0)
         val teams: List<Team> = if (resource.status == Status.SUCCESS) {
             resource.data?.sortAz() ?: emptyList()
         } else {
-            showRetryButton.value = 1
-            showErrorMessage.value = resource.message
+            showRetryButton(1)
+            showErrorMessage(resource.message)
             emptyList<Team>()
         }
         teamsLiveData.value = teams
@@ -50,5 +52,20 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
 
     fun retryClicked() {
         fetchTeams()
+    }
+
+    @VisibleForTesting
+    fun showProgressBar(value: Int) {
+        showProgressBarLiveData.value = value
+    }
+
+    @VisibleForTesting
+    fun showErrorMessage(message: String?) {
+        showErrorMessageLiveData.value = message
+    }
+
+    @VisibleForTesting
+    fun showRetryButton(value: Int) {
+        showRetryButtonLiveData.value = value
     }
 }
