@@ -17,7 +17,7 @@
             android:id="@+id/details_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
+            android:background="?android:attr/colorBackground"
             android:theme="?android:attr/actionBarTheme"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="?android:attr/actionBarPopupTheme" />

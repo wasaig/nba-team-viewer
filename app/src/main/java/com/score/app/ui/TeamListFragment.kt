@@ -11,12 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.score.app.R
 import com.score.app.TeamApplication
 import com.score.app.adapter.TeamAdapter
 import com.score.app.network.model.Team
 import com.score.app.viewmodel.TeamViewModel
 import kotlinx.android.synthetic.main.fragment_team_list.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
@@ -34,7 +36,7 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
         super.onAttach(context)
 
         (requireActivity().application as TeamApplication)
-                .appComponent.teamComponent().create().inject(this)
+                .appComponent.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -105,13 +107,15 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
     }
 
     private fun onMenuItemClick(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_A_Z -> teamAdapter.sortAz()
-            R.id.action_Z_A -> teamAdapter.sortZa()
-            R.id.action_wins -> teamAdapter.sortByWins()
-            R.id.action_wins_descending -> teamAdapter.sortByWinsDescending()
-            R.id.action_losses -> teamAdapter.sortByLosses()
-            R.id.action_losses_descending -> teamAdapter.sortByLossesDescending()
+        lifecycleScope.launch {
+            when (item.itemId) {
+                R.id.action_A_Z -> teamAdapter.sortAz()
+                R.id.action_Z_A -> teamAdapter.sortZa()
+                R.id.action_least_wins -> teamAdapter.sortByLeastWins()
+                R.id.action_most_wins -> teamAdapter.sortByMostWins()
+                R.id.action_least_losses -> teamAdapter.sortByLeastLosses()
+                R.id.action_most_losses -> teamAdapter.sortByMostLosses()
+            }
         }
         return true
     }

@@ -11,7 +11,7 @@ class CacheInterceptor : Interceptor {
         request = if (NetworkUtil.isConnected)
             request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
         else
-            request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
+            request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24).build()
 
         return chain.proceed(request)
     }

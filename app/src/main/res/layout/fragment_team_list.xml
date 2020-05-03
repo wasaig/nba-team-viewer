@@ -17,6 +17,7 @@
             android:id="@+id/list_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="?android:attr/colorBackground"
             android:theme="?android:attr/actionBarTheme"
             app:popupTheme="?android:attr/actionBarPopupTheme" />
     </com.google.android.material.appbar.AppBarLayout>

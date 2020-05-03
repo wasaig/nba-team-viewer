@@ -13,22 +13,22 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_wins"
+        android:id="@+id/action_least_wins"
         android:title="@string/action_wins"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_wins_descending"
+        android:id="@+id/action_most_wins"
         android:title="@string/action_wins_descending"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_losses"
+        android:id="@+id/action_least_losses"
         android:title="@string/action_losses"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_losses_descending"
+        android:id="@+id/action_most_losses"
         android:title="@string/action_losses_descending"
         app:showAsAction="never" />
 

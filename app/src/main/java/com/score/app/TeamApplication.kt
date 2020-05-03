@@ -14,7 +14,4 @@ open class TeamApplication : Application() {
         return DaggerAppComponent.factory().create(applicationContext)
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 }

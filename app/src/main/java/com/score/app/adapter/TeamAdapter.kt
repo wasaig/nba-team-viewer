@@ -9,6 +9,8 @@ import com.score.app.R
 import com.score.app.network.model.Team
 import com.score.app.util.*
 import kotlinx.android.synthetic.main.team_list_item.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
 
@@ -52,28 +54,38 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun sortAz() {
-        addData(data.sortAz())
+    private suspend fun addSortedData(sortedData: List<Team>) = withContext(Dispatchers.Main) {
+        addData(sortedData)
     }
 
-    fun sortZa() {
-        addData(data.sortZa())
+    suspend fun sortAz() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortAz()
+        addSortedData(sortedData)
     }
 
-    fun sortByWins() {
-        addData(data.sortByLeastWins())
+    suspend fun sortZa() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortZa()
+        addSortedData(sortedData)
     }
 
-    fun sortByWinsDescending() {
-        addData(data.sortByMostWins())
+    suspend fun sortByLeastWins() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortByLeastWins()
+        addSortedData(sortedData)
     }
 
-    fun sortByLosses() {
-        addData(data.sortByLeastLosses())
+    suspend fun sortByMostWins() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortByMostWins()
+        addSortedData(sortedData)
     }
 
-    fun sortByLossesDescending() {
-        addData(data.sortByMostLosses())
+    suspend fun sortByLeastLosses() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortByLeastLosses()
+        addSortedData(sortedData)
+    }
+
+    suspend fun sortByMostLosses() = withContext(Dispatchers.Default) {
+        val sortedData = data.sortByMostLosses()
+        addSortedData(sortedData)
     }
 
     interface OnTeamClickListener {

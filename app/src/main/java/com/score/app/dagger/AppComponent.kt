@@ -1,19 +1,18 @@
 package com.score.app.dagger
 
 import android.content.Context
-import com.score.app.repository.TeamRepository
+import com.score.app.ui.TeamActivity
+import com.score.app.ui.TeamListFragment
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
 import javax.inject.Singleton
 
-// Definition of the Application graph
 @Singleton
 @Component(
         modules = [
             AppModule::class,
             ViewModelModule::class,
-            SubComponentsModule::class
+            TeamModule::class
         ]
 )
 interface AppComponent {
@@ -23,13 +22,7 @@ interface AppComponent {
         fun create(@BindsInstance applicationContext: Context): AppComponent
     }
 
-    fun teamComponent(): TeamComponent.Factory
-    val teamRepository: TeamRepository
-}
+    fun inject(fragment: TeamListFragment)
+    fun inject(activity: TeamActivity)
 
-@Module(
-        subcomponents = [
-            TeamComponent::class
-        ]
-)
-object SubComponentsModule
+}

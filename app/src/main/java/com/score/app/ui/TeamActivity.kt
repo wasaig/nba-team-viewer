@@ -21,14 +21,12 @@ class TeamActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_team)
-        (application as TeamApplication).appComponent.teamComponent().create().inject(this)
+        (application as TeamApplication).appComponent.inject(this)
 
         NetworkUtil.registerNetworkCallback(applicationContext)
 
-        if (savedInstanceState == null) {
-            loadTeamListFragment()
-            observeTeamClicked()
-        }
+        loadTeamListFragment()
+        observeTeamClicked()
     }
 
     private fun observeTeamClicked() {

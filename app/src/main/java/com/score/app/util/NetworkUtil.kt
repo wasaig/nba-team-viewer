@@ -5,10 +5,13 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
+import android.util.Log
 
 class NetworkUtil {
 
     companion object {
+
+        const val TAG = "NetworkUtil"
 
         var isConnected = false
 
@@ -20,7 +23,19 @@ class NetworkUtil {
                     .build()
             cm.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
+                    Log.d(TAG, "onAvailable")
                     isConnected = true
+                }
+
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    Log.d(TAG, "onLost")
+                    isConnected = false
+                }
+
+                override fun onUnavailable() {
+                    Log.d(TAG, "onUnavailable")
+                    isConnected = false
                 }
             })
         }
