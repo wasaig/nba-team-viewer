@@ -54,38 +54,38 @@ class TeamAdapter : RecyclerView.Adapter<TeamAdapter.TeamViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private suspend fun addSortedData(sortedData: List<Team>) = withContext(Dispatchers.Main) {
-        addData(sortedData)
+    private suspend fun notifyAdapter() = withContext(Dispatchers.Main) {
+        notifyDataSetChanged()
     }
 
     suspend fun sortAz() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortAz()
-        addSortedData(sortedData)
+        data.sortAz()
+        notifyAdapter()
     }
 
     suspend fun sortZa() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortZa()
-        addSortedData(sortedData)
+        data.sortZa()
+        notifyAdapter()
     }
 
     suspend fun sortByLeastWins() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortByLeastWins()
-        addSortedData(sortedData)
+        data.sortByLeastWins()
+        notifyAdapter()
     }
 
     suspend fun sortByMostWins() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortByMostWins()
-        addSortedData(sortedData)
+        data.sortByMostWins()
+        notifyAdapter()
     }
 
     suspend fun sortByLeastLosses() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortByLeastLosses()
-        addSortedData(sortedData)
+        data.sortByLeastLosses()
+        notifyAdapter()
     }
 
     suspend fun sortByMostLosses() = withContext(Dispatchers.Default) {
-        val sortedData = data.sortByMostLosses()
-        addSortedData(sortedData)
+        data.sortByMostLosses()
+        notifyAdapter()
     }
 
     interface OnTeamClickListener {

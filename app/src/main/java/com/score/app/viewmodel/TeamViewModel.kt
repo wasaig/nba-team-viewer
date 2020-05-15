@@ -1,5 +1,6 @@
 package com.score.app.viewmodel
 
+import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,8 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
     private val showErrorMessageLiveData = MutableLiveData<String>()
 
     init {
-        showProgressBar(1)
-        showRetryButton(0)
+        showProgressBar(View.VISIBLE)
+        showRetryButton(View.GONE)
         fetchTeams()
     }
 
@@ -34,12 +35,14 @@ class TeamViewModel @Inject constructor(private val repository: TeamRepository) 
     @VisibleForTesting
     fun fetchTeams() = viewModelScope.launch {
         val resource = repository.fetchTeams()
-        showProgressBar(0)
-        showRetryButton(0)
+        showProgressBar(View.GONE)
+        showRetryButton(View.GONE)
         val teams: List<Team> = if (resource.status == Status.SUCCESS) {
-            resource.data?.sortAz() ?: emptyList()
+            val data = resource.data
+            data?.sortAz()
+            data ?: emptyList()
         } else {
-            showRetryButton(1)
+            showRetryButton(View.VISIBLE)
             showErrorMessage(resource.message)
             emptyList<Team>()
         }

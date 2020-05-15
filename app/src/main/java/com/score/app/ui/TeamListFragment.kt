@@ -85,13 +85,13 @@ class TeamListFragment : Fragment(), TeamAdapter.OnTeamClickListener {
 
     private fun observeProgressBar() {
         viewModel.observeProgressBar().observe(viewLifecycleOwner, Observer {
-            progress_circular.visibility = if (it == 0) View.GONE else View.VISIBLE
+            progress_circular.visibility = it
         })
     }
 
     private fun observeRetryButton() {
         viewModel.observeRetryButton().observe(viewLifecycleOwner, Observer {
-            btn_retry.visibility = if (it == 0) View.GONE else View.VISIBLE
+            btn_retry.visibility = it
         })
     }
 
